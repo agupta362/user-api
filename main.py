@@ -24,10 +24,10 @@ def connect_db():
 
 conn = connect_db()
 
-
 @app.get("/")
 def root():
-    return{"message": "Hello World"}
+    return {"message": "User API v2 - deployed automatically"}
+
 
 @app.get("/users")
 def get_users():
