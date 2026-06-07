@@ -12,7 +12,7 @@ def connect_db():
                 host=os.getenv("DB_HOST", "localhost"),
                 database=os.getenv("DB_NAME", "myapi"),
                 user=os.getenv("DB_USER", "postgres"),
-                password=os.getenv("DB_PASSWORD", "password123")
+                password=os.getenv("DB_PASSWORD", "9866115169@Ag")
             )
             print("Connected to database")
             return conn
