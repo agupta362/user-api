@@ -1,15 +1,29 @@
 import os
 from fastapi import FastAPI
 import psycopg2
+import time
 
 app = FastAPI()
+def connect_db():
+    retries = 5
+    while retries > 0:
+        try:
+            conn = psycopg2.connect(
+                host=os.getenv("DB_HOST", "localhost"),
+                database=os.getenv("DB_NAME", "myapi"),
+                user=os.getenv("DB_USER", "postgres"),
+                password=os.getenv("DB_PASSWORD", "password123")
+            )
+            print("Connected to database")
+            return conn
+        except Exception as e:
+            print(f"Database not ready, retrying... {retries} attempts left")
+            retries -= 1
+            time.sleep(3)
+    raise Exception("Could not connect to database")
 
-conn = psycopg2.connect(
-    host=os.getenv("DB_HOST", "localhost"),
-    database=os.getenv("DB_NAME", "myapi"),
-    user=os.getenv("DB_USER", "postgres"),
-    password=os.getenv("DB_PASSWORD", "9866115169@Ag")
-)
+conn = connect_db()
+
 
 @app.get("/")
 def root():
